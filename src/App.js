@@ -1,26 +1,80 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { Menu } from "semantic-ui-react";
+import logo from "./logo.svg";
+import "./App.css";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export class App extends React.Component {
+  state = {};
+
+  handleItemClick = (e, { name }) => this.setState({ activeItem: name });
+  render() {
+    const { activeItem } = this.state;
+    return (
+      <Router>
+        <div>
+          <Menu stackable>
+            <Menu.Item>
+              <img src={logo} />
+            </Menu.Item>
+
+            <Menu.Item
+              name="new-bill"
+              active={activeItem === "new-bill"}
+              onClick={this.handleItemClick}
+              as={Link}
+              to="/new-bill"
+            >
+              Add New Bill
+            </Menu.Item>
+
+            <Menu.Item
+              name="statistics"
+              active={activeItem === "statistics"}
+              onClick={this.handleItemClick}
+              as={Link}
+              to="/statistics"
+            >
+              List Bills
+            </Menu.Item>
+
+            <Menu.Item
+              name="list-bills"
+              active={activeItem === "list-bills"}
+              onClick={this.handleItemClick}
+              as={Link}
+              to="/"
+            >
+              Statistics
+            </Menu.Item>
+          </Menu>
+          <Switch>
+            <Route path="/new-bill">
+              <About />
+            </Route>
+            <Route path="/statistics">
+              <Users />
+            </Route>
+            <Route path="/">
+              <Home />
+            </Route>
+          </Switch>
+        </div>
+      </Router>
+    );
+  }
+}
+
+function Home() {
+  return <h2>Home</h2>;
+}
+
+function About() {
+  return <h2>About</h2>;
+}
+
+function Users() {
+  return <h2>Users</h2>;
 }
 
 export default App;
