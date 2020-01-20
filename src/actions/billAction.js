@@ -14,3 +14,10 @@ export const getBills = () => dispatch => {
       console.log(err);
     });
 };
+
+export const addBill = bill => dispatch => {
+  dispatch({
+    type: ADD_BILL,
+    payload: bill
+  });
+};
