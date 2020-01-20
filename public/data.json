@@ -1,11 +1,29 @@
 [
   {
-    "asd": 34
+    "id": 1,
+    "title": "Internet",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+    "amount": 65,
+    "dueDate": "2020-01-19",
+    "category": 1,
+    "repeatInterval": 1
   },
   {
-    "sdf": 34
+    "id": 2,
+    "title": "Electricity",
+    "description": "Ut enim ad minim veniam",
+    "amount": 122,
+    "dueDate": "2020-01-31",
+    "category": 2,
+    "repeatInterval": 1
   },
   {
-    "sdf": 34
+    "id": 3,
+    "title": "Gas",
+    "description": "Excepteur sint occaecat cupidatat non proident",
+    "amount": 253,
+    "dueDate": "2020-01-25",
+    "category": 2,
+    "repeatInterval": 1
   }
 ]

@@ -10,10 +10,13 @@ import { Menu } from "semantic-ui-react";
 import logo from "./logo.svg";
 import "./App.css";
 import SignIn from "./pages/SignIn";
+import BillForm from "./pages/BillForm";
+import MyBills from "./pages/MyBills";
+import Statistics from "./pages/Statistics";
 import { connect } from "react-redux";
 
 export class App extends React.Component {
-  state = {};
+  state = { invertedTheme: false };
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name });
   render() {
@@ -24,19 +27,29 @@ export class App extends React.Component {
           {this.props.auth.isAuthenticated ? (
             <>
               <Redirect to="/" />
+
               <Menu stackable>
                 <Menu.Item>
                   <img src={logo} />
                 </Menu.Item>
 
                 <Menu.Item
-                  name="new-bill"
-                  active={activeItem === "new-bill"}
+                  name="my-bills"
+                  active={activeItem === "my-bills"}
                   onClick={this.handleItemClick}
                   as={Link}
-                  to="/new-bill"
+                  to="/"
                 >
-                  Add New Bill
+                  My Bills
+                </Menu.Item>
+                <Menu.Item
+                  name="add-bill"
+                  active={activeItem === "add-bill"}
+                  onClick={this.handleItemClick}
+                  as={Link}
+                  to="/add-bill"
+                >
+                  Add Bill
                 </Menu.Item>
 
                 <Menu.Item
@@ -46,16 +59,6 @@ export class App extends React.Component {
                   as={Link}
                   to="/statistics"
                 >
-                  List Bills
-                </Menu.Item>
-
-                <Menu.Item
-                  name="list-bills"
-                  active={activeItem === "list-bills"}
-                  onClick={this.handleItemClick}
-                  as={Link}
-                  to="/"
-                >
                   Statistics
                 </Menu.Item>
               </Menu>
@@ -63,18 +66,19 @@ export class App extends React.Component {
           ) : (
             <Redirect to="/signin" />
           )}
+
           <Switch>
             <Route path="/signin">
               <SignIn />
             </Route>
-            <Route path="/new-bill">
-              <About />
+            <Route path="/add-bill">
+              <BillForm />
             </Route>
             <Route path="/statistics">
-              <Users />
+              <Statistics />
             </Route>
             <Route path="/">
-              <Home />
+              <MyBills />
             </Route>
           </Switch>
         </div>
@@ -82,19 +86,6 @@ export class App extends React.Component {
     );
   }
 }
-
-function Home() {
-  return <h2>Home</h2>;
-}
-
-function About() {
-  return <h2>About</h2>;
-}
-
-function Users() {
-  return <h2>Users</h2>;
-}
-
 const mapStateToProps = (state, ownProps) => ({
   auth: state.authReducer
 });
