@@ -1,35 +1,40 @@
 import React from "react";
-import { Grid, Form, Button, Message } from "semantic-ui-react";
+import { Grid, Form, Button, Message, Segment } from "semantic-ui-react";
 import { connect } from "react-redux";
 import { signIn } from "../actions//authAction";
 
 export class SignIn extends React.Component {
-  state = {};
+  state = { username: "", password: "" };
+  handleChange = e => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
 
   render() {
-    console.log(this.props);
     return (
-      <Grid columns="equal">
-        <Grid.Row stretched>
-          <Grid.Column></Grid.Column>
+      <Grid centered>
+        <Grid.Row stretched centered>
           <Grid.Column width={6}>
+            <Segment padded="very">
+              Leave blank to sign-in, type some input to get error.
+            </Segment>
             <Form error={this.props.signinError}>
               <Form.Input
-                error={{
-                  content: "Please enter your first name",
-                  pointing: "below"
-                }}
+                name="username"
                 fluid
                 label="Username"
                 placeholder="Username"
                 id="form-input-first-name"
+                value={this.state.username}
+                onChange={this.handleChange}
               />
               <Form.Input
-                error="Please enter your last name"
+                name="password"
                 fluid
                 label="Password"
                 placeholder="Password"
                 type="password"
+                value={this.state.password}
+                onChange={this.handleChange}
               />
               <Message
                 error
@@ -39,7 +44,7 @@ export class SignIn extends React.Component {
               <Button
                 type="submit"
                 onClick={() => {
-                  this.props.signIn("", "");
+                  this.props.signIn(this.state.username, this.state.password);
                 }}
               >
                 Submit
